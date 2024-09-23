@@ -12,6 +12,13 @@
 /* yes, great job */
 
 --Q4.6
+WITH RecentYearIncome AS (
+    -- Get the most recent year
+    SELECT fips, income, year
+    FROM income
+    WHERE year = (SELECT MAX(year) FROM income)
+)
+-- Now, find the state with the highest income in the most recent year
 SELECT n.name, r.income, r.year
 FROM RecentYearIncome r
 JOIN name n ON n.fips = r.fips
